@@ -8,7 +8,7 @@ FROM $BUILDER_IMAGE AS build
     RUN go build -o app-golang-kaniko main.go
 
 
-FROM $RUNTIME_IMAGE AS runtime
+FROM $BUILDER_IMAGE AS runtime
 
     ENV PORT=8080
     EXPOSE 8080
