@@ -1,0 +1,24 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: app-golang-kaniko
+    apps.tanzu.vmware.com/workload-type: helm
+  name: app-golang-kaniko
+  namespace: mae
+spec:
+  params:
+  - name: annotations
+    value:
+      autoscaling.knative.dev/minScale: "1"
+  - name: dockerfile
+    value: ./Dockerfile
+  - name: docker_build_extra_args
+    value:
+    - --destination
+    - cxscssa.azurecr.io/tap-build/workloads/app-golang-kaniko-mae:0.0.2
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/Mpluya/app-golang-kaniko
