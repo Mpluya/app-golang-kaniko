@@ -1,0 +1,21 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: app-golang-kaniko
+    apps.tanzu.vmware.com/workload-type: web
+  name: app-golang-kaniko
+  namespace: dev
+spec:
+  params:
+    - name: dockerfile
+      value: ./Dockerfile
+    - name: docker_build_extra_args
+      value:
+      - --destination
+      - us-west2-docker.pkg.dev/shepherd-v2-environment-1/sh2-dash-3254016-oci-registry/workloads/app-golang-kaniko:mae
+  source:
+    git:
+      ref:
+        branch: main
+      url: https://github.com/carto-run/app-golang-kaniko
